@@ -9,7 +9,7 @@ import { GameCard } from "./scripts/GameCard.ts";
 import ServerStatusCard from "./server-card/server-status-card.vue";
 import { ref } from "vue";
 
-const gameCards = ref([]);
+const gameCards = ref<GameCard[]>([]);
 
 const gameCardsData = [
     { id: 1, title: 'Valorant', imageUrl: 'src/assets/images/valorant/val-logo.png' },

@@ -13,18 +13,16 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from "vue";
+    // import {ref} from "vue";
 
-    const server_ping = ref("0");
-    const server_problems = ref(["nothing"]);
-
-    const props = defineProps({
+    // const server_ping = ref("0");
+    // const server_problems = ref(["nothing"]);
+    defineProps({
         title: String,
         ping: String,
         incidents: [],
 
-    })
-
+    });
 </script>
 
 <style lang="scss" scoped>
