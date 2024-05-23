@@ -1,5 +1,5 @@
 <template>
-    <div class="card-list">
+    <div class="card-list component">
         <server-status-card  v-for="game in gameCards" :key="game.id" :game="game" />
     </div>
 </template>
@@ -30,6 +30,9 @@ Promise.all(gameCardsData.map(async (cardData) => {
  .card-list {
      display: flex;
      align-items: center;
-     gap: 50px
+     gap: 50px;
+     border-radius: 0px 20px 20px 2px;
+     margin: 30px 30px 30px 0;
+     padding: 30px 60px;
  }
 </style>
