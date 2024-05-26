@@ -9,7 +9,6 @@ async function sendRequest() {
     try {
         await getStatus();
         await parseValStatus(status.value)
-        // console.log('VAL status:', status.value);
     } catch (error) {
         console.error(error);
     }

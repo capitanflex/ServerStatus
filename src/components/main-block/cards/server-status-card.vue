@@ -1,12 +1,11 @@
 <template>
-    <div class="card-list__game-card game-card "  v-if="game" @click="toggleDrawer">
+    <div class="card-list__game-card game-card "  v-if="game" @click="changeSelectedGame">
             <img :src="game.imageUrl" alt="" class="game-card__image__logo">
     </div>
 </template>
 
 <script setup lang="ts">
-import CardInfo from "./card-info.vue";
-import {ref, defineEmits} from "vue";
+import {useGameStore} from "@/store/store";
 
 
 const props = defineProps({
@@ -14,12 +13,12 @@ const props = defineProps({
 
 })
 
+const gameStore = useGameStore();
 
-const emits = defineEmits(['cardClick']);
 
-
-const toggleDrawer = () => {
-    emits('cardClick', props.game);
+const changeSelectedGame = () => {
+    gameStore.updateGame(props.game);
+    console.log('game updated');
 };
 </script>
 
@@ -29,7 +28,7 @@ const toggleDrawer = () => {
     .game-card {
         background-color: #AC3434;
         border-radius: 11px;
-        max-width: 170px;
+        width: 170px;
         height: 140px;
         display: flex;
         justify-content: center;
@@ -46,6 +45,13 @@ const toggleDrawer = () => {
             width: 100%;
             height: auto;
             display: block;
+        }
+    }
+
+    @media (max-width: 774px) {
+        .game-card {
+            width: 120px;
+            height: 90px;
         }
     }
 

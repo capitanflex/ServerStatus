@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function useValAPI() {
     const status = ref(null);
-    const apiKey = 'RGAPI-7187e849-5338-4777-8400-872418153c0b';
+    const apiKey = 'RGAPI-c117c89b-c42c-4a99-9642-2175431a8098';
     const getStatus = async () => {
         try {
             const startTime = Date.now();
@@ -15,14 +15,13 @@ export default function useValAPI() {
 
             const responseTime = Date.now() - startTime;
             status.value.responseTime = responseTime.toString();
-
             status.value.incidents = status.value.incidents.map((e) => {
                 return getENIncidentTitle(e);
             });
             console.log(status.value.incidents)
 
         } catch (error) {
-            console.error('Error fetching VAL status:', error);
+            // console.error('Error fetching VAL status:', error);
             throw error;
         }
     };

@@ -19,8 +19,7 @@ export class GameCard {
             const response = await axios.get('http://localhost:8080/api/gamestatus/?gameid=' + this.id.toString());
             const gameData = response.data;
             const lastGameData = gameData[gameData.length - 1];
-            const parsedIncidents = lastGameData.errors.split(';');
-            console.log(parsedIncidents)
+            const parsedIncidents = lastGameData.errors === null? 'nothing' : lastGameData.errors.split(';');
 
             this.ping = lastGameData.ping || 'can not get';
             this.incidents = parsedIncidents.length === 0 ? ["nothing"] : parsedIncidents;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import CardsHolder from "./CardsHolder.vue";
-import GameInfo from "./GameInfo.vue";
+import CardsHolder from "./cards/cards-holder.vue";
+import GameInfo from "./info-block/game-info.vue";
 </script>
 
 <template>
@@ -17,6 +17,11 @@ import GameInfo from "./GameInfo.vue";
 .main {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     width: 100%;
+}
+
+@media (max-width: 1158px) {
+    
 }
 </style>
