@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { GameCard } from "../../../scripts/GameCard.ts";
+import { GameCard } from "@/scripts/GameCard.ts";
 import ServerStatusCard from "./server-status-card.vue";
 import { ref } from "vue";
 import {useGameStore} from "@/store/store";

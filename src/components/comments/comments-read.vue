@@ -7,15 +7,15 @@ import SingleComment from "@/components/comments/single-comment.vue";
 <div class="comments-read component">
     <div class="comments-read__title">Last comments:</div>
     <div class="comments-read__content">
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
-        <single-comment author="Vasya" message="bad connection"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment author="Gena1964" message="queue problems"/>
     </div>
 </div>
 </template>
