@@ -88,5 +88,19 @@ function BuildChart() {
 </template>
 
 <style scoped lang="scss">
-
+    .chart-container{
+        padding: 30px 30px 30px 50px;
+        width: 1080px;
+    }
+    
+    @media (max-width: 1440px) {
+        .chart-container{
+            width: 710px;
+        }
+    }
+    @media (max-width: 1130px) {
+        .chart-container{
+            width: unset;
+        }
+    }
 </style>
