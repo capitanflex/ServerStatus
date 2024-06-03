@@ -1,21 +1,51 @@
 <script setup lang="ts">
-
 import SingleComment from "@/components/comments/single-comment.vue";
+import {onMounted, ref, watch} from "vue";
+import axios from "axios";
+import {useGameStore} from "../../store/store.js";
+
+const gameStore = useGameStore();
+const lastComments = ref([]);
+
+async function fetchComments(gameId: number) {
+    const params = {
+        "gameid": gameId
+    };
+
+    try {
+        const response = await axios.post('http://localhost:8080/api/comments-read/',  params );
+        lastComments.value = response.data;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// function loadMoreComments() {
+//
+// }
+
+watch(
+    () => gameStore.game,
+    (newGameData) => {
+        fetchComments(newGameData.id);
+    },
+    {deep: true, immediate: true}
+);
+
 </script>
 
 <template>
 <div class="comments-read component">
     <div class="comments-read__title">Last comments:</div>
     <div class="comments-read__content">
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
-        <single-comment author="Gena1964" message="queue problems"/>
+        <single-comment
+            v-for="comment in lastComments"
+            :key="comment.id"
+            :author="comment.author"
+            :message="comment.comment"
+            :date="comment.date"
+        />
     </div>
 </div>
 </template>

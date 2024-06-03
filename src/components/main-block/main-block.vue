@@ -2,12 +2,14 @@
 
 import CardsHolder from "./cards/cards-holder.vue";
 import GameInfo from "./info-block/game-info.vue";
+import Grafic from "../grafics/grafic.vue";
 </script>
 
 <template>
     <div class="main">
         <cards-holder/>
         <game-info/>
+        <grafic/>
     </div>
 
 

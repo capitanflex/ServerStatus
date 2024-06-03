@@ -1,18 +1,63 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import axios from "axios";
+import {useGameStore} from "../../store/store.js";
 
+const gameStore = useGameStore();
+
+const commentAuthor = ref('');
+const commentText = ref('');
+
+const submitForm = () => {
+  sendComment(commentAuthor.value, commentText.value)
+
+  commentAuthor.value = '';
+  commentText.value = '';
+};
+
+async function sendComment(author: string, text: string) {
+  const date = formatDate(Date.now());
+  const currentGameId = ref<number>(gameStore.game.id);
+  const data = {
+    gameid: currentGameId.value,
+    comment: text,
+    author: author,
+    date: date
+  };
+
+  try {
+    const response = await axios.post('http://localhost:8080/api/comments/', data, {});
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+function formatDate(dateString: number) {
+    const date = new Date(dateString);
+
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()+3).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
 </script>
 
 <template>
-<div class="comments-form component">
-    <div class="comments-form__form-report form-report">
-        <p class="form-report__placeholder">Name:</p>
-        <input type="text" class="form-report__name">
-    </div>
-    <div class="comments-form__form-report form-report">
-        <textarea  class="form-report__message" placeholder="Problem description..."></textarea>
-    </div>
-    <button class="component-form__send-btn send-btn">Send comment</button>
-</div>
+<form class="comments-form component"  @submit.prevent="submitForm">
+  <div class="comments-form__form-report form-report">
+      <p class="form-report__placeholder">Name:</p>
+      <input type="text" class="form-report__name" v-model="commentAuthor" />
+  </div>
+  <div class="comments-form__form-report form-report">
+      <textarea  class="form-report__message" placeholder="Problem description..." v-model="commentText"></textarea>
+  </div>
+  <button class="component-form__send-btn send-btn" type="submit">Send comment</button>
+</form>
 </template>
 
 <style scoped lang="scss">

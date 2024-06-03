@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import gameRouter from './routes/game.routes.js';
+import gameComments from './routes/comments.routes.js';
 import gamestatusRoutes from './routes/gamestatus.routes.js';
 import {closeValCrone, startValCrone} from "./crone_tasks/getInfoVal_crone.js";
 
@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: 'http://localhost:8080' }));
 
-app.use('/api', gameRouter);
+app.use('/api', gameComments);
 app.use('/api', gamestatusRoutes);
 
 app.get('/', (req, res) => {
