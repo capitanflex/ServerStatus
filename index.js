@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Welcome to the application.' });
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 55873;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 
