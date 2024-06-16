@@ -1,13 +1,14 @@
 <template>
-    <div class="card-list__game-card game-card "  v-if="game" @click="changeSelectedGame">
+    <div class="card-list__game-card game-card "  v-if="game" @click="changeSelectedGame" :class="{'selected': select}">
             <img :src="game.imageUrl" alt="" class="game-card__image__logo">
     </div>
 </template>
 
 <script setup lang="ts">
 import {useGameStore} from "@/store/store";
+import {onMounted, ref, watch} from "vue";
 
-
+const select = ref(false);
 const props = defineProps({
     game: Object,
 
@@ -18,8 +19,27 @@ const gameStore = useGameStore();
 
 const changeSelectedGame = () => {
     gameStore.updateGame(props.game);
-    console.log('game updated');
 };
+
+const selectCard = (gameid : number) => {
+    if (props.game.id == gameid){
+        select.value = !select.value;
+    }
+    else {
+        select.value = false;
+    }
+}
+
+watch(
+    () => gameStore.game.id,
+    (gameid) => {
+        selectCard(gameid)
+    }
+);
+
+onMounted(() => {
+    selectCard(gameStore.game.id)
+})
 </script>
 
 
@@ -53,6 +73,9 @@ const changeSelectedGame = () => {
             width: 120px;
             height: 90px;
         }
+    }
+    .selected {
+        box-shadow: 0 0 8px 5px #ECECEC;
     }
 
 </style>

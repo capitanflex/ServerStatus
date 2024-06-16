@@ -27,7 +27,7 @@
                         >
                             {{ incident }}
                         </p>
-                        <div class="fade-container__nothing" v-else>nothing</div>
+                        <div class="fade-container__nothing" v-else>unable to purchase in-game currencies and transfers disabled (russia only)</div>
                     </div>
                 </div>
             </div>
@@ -38,20 +38,13 @@
 
 <script setup lang="ts">
 import {useGameStore} from "@/store/store";
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 const gameStore = useGameStore();
-const currentGameId = ref<number>(gameStore.game.id);
-const title = ref<string>(gameStore.game.title);
+const currentGameId = ref<number>(null);
+const title = ref<string>(null);
 const ping = ref<number | null>(null);
 const incidents = ref<string[] | null>(null);
-
-const updateGameData = (data: GameData) => {
-    currentGameId.value = data.id;
-    title.value = data.title;
-    ping.value = data.ping;
-    incidents.value = data.incidents;
-};
 
 interface GameData {
     id: number;
@@ -59,14 +52,23 @@ interface GameData {
     ping: number;
     incidents: string[];
 }
+const updateGameData = (data: GameData) => {
+    currentGameId.value = data.id;
+    title.value = data.title;
+    ping.value = data.ping;
+    incidents.value = data.incidents;
+
+};
 
 watch(
     () => gameStore.game,
     (newGameData: GameData) => {
+        console.log(newGameData)
         updateGameData(newGameData);
     },
     {deep: true, immediate: true}
 );
+
 </script>
 
 <style scoped lang="scss">

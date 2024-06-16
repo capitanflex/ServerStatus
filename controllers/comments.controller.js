@@ -2,9 +2,15 @@ import pool from "../db.js";
 
 class GameCommentsController {
     async createComment(req, res) {
-        const { gameid, comment, author, date } = req.body;
-        const newComment = await pool.query('INSERT INTO comments (gameid, comment, author, date) values ($1, $2, $3, $4) RETURNING *', [gameid, comment, author, date]);
-        res.json(newComment.rows[0] )
+        try {
+            const {gameid, comment, author, date} = req.body;
+            const newComment = await pool.query('INSERT INTO comments (gameid, comment, author, date) values ($1, $2, $3, $4) RETURNING *', [gameid, comment, author, date]);
+            res.json(newComment.rows[0])
+        }
+        catch (err) {
+            console.error('Error set comment:', err);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
     async getGameComments (req, res) {

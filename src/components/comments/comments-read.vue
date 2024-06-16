@@ -13,7 +13,7 @@ async function fetchComments(gameId: number) {
     };
 
     try {
-        const response = await axios.post('http://localhost:8080/api/comments-read/',  params );
+        const response = await axios.post('http://server-status.na4u.ru/api/comments-read/',  params );
         lastComments.value = response.data;
 
     } catch (error) {

@@ -2,7 +2,7 @@
 
 import CardsHolder from "./cards/cards-holder.vue";
 import GameInfo from "./info-block/game-info.vue";
-import Grafic from "../grafics/grafic.vue";
+import Grafic from "./grafics/comments-chart.vue";
 </script>
 
 <template>

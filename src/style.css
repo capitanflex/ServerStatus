@@ -6,6 +6,9 @@
 
   background: #AF0202C9;
 }
+html {
+  height: 100%;
+}
 
 a {
   font-weight: 500;
@@ -25,11 +28,7 @@ input {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  width: 100%;
-  min-height: 100vh;
+  height: 100%;
 }
 
 h1 {

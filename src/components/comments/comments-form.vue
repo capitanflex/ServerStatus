@@ -26,7 +26,7 @@ async function sendComment(author: string, text: string) {
   };
 
   try {
-    const response = await axios.post('http://localhost:8080/api/comments/', data, {});
+    const response = await axios.post('http://server-status.na4u.ru/api/comments/', data, {});
 
   } catch (error) {
     console.error('Error:', error);
@@ -36,12 +36,14 @@ async function sendComment(author: string, text: string) {
 function formatDate(dateString: number) {
     const date = new Date(dateString);
 
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const hours = String(date.getUTCHours()+3).padStart(2, '0');
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    const moscowOffset = 3 * 60 * 60 * 1000;
+    const moscowTime = new Date(date.getTime() + moscowOffset);
+
+    const year = moscowTime.getUTCFullYear();
+    const month = String(moscowTime.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(moscowTime.getUTCDate()).padStart(2, '0');
+    const hours = String(moscowTime.getUTCHours()).padStart(2, '0');
+    const minutes = String(moscowTime.getUTCMinutes()).padStart(2, '0');
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
