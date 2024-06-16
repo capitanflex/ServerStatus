@@ -16,7 +16,7 @@ export class GameCard {
 
     async fetchCardInfo() {
         try {
-            const response = await axios.get('http://localhost:8080/api/gamestatus/?gameid=' + this.id.toString());
+            const response = await axios.get('http://server-status.na4u.ru/api/gamestatus/?gameid=' + this.id.toString());
             const gameData = response.data;
             const lastGameData = gameData[gameData.length - 1];
             const parsedIncidents = lastGameData.errors === null? 'nothing' : lastGameData.errors.split(';');
