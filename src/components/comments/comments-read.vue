@@ -8,12 +8,12 @@ const gameStore = useGameStore();
 const lastComments = ref([]);
 
 async function fetchComments(gameId: number) {
-    const params = {
+    const data = {
         "gameid": gameId
     };
 
     try {
-        const response = await axios.post('http://server-status.na4u.ru/api/comments-read/',  params );
+        const response = await axios.post('https://server-status.na4u.ru/api/comments-read/', data);
         lastComments.value = response.data;
 
     } catch (error) {
@@ -21,9 +21,6 @@ async function fetchComments(gameId: number) {
     }
 }
 
-// function loadMoreComments() {
-//
-// }
 
 watch(
     () => gameStore.game,

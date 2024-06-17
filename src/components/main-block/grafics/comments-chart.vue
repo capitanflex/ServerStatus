@@ -22,7 +22,7 @@ async function fetchDayComments(gameId) {
     const params = {"gameid": gameId};
 
     try {
-        const response = await axios.post('http://server-status.na4u.ru/api/comments-day/', params);
+        const response = await axios.post('https://server-status.na4u.ru/api/comments-day/', params);
 
         if (response.data && response.data.length > 0) {
             updateChartData(response.data);

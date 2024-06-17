@@ -8,7 +8,9 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:5173',
     'http://server-status.na4u.ru',
-    'http://server-status-riot.na4u.ru'
+    'https://server-status.na4u.ru',
+    'http://server-status-riot.na4u.ru',
+    'https://server-status-riot.na4u.ru'
 ];
 
 const corsOptions = {
@@ -25,7 +27,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use(express.json());
 app.use('/api', gameComments);
 app.use('/api', gamestatusRoutes);
 

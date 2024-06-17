@@ -27,7 +27,7 @@ async function sendComment(author: string, text: string) {
   };
 
   try {
-    const response = await axios.post('http://server-status.na4u.ru/api/comments/', data, {});
+    const response = await axios.post('https://server-status.na4u.ru/api/comments/', data, {});
 
   } catch (error) {
     console.error('Error:', error);
