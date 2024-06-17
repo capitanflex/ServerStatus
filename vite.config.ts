@@ -9,5 +9,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://server-status.na4u.ru/', // Замените на адрес вашего бэкенда
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
   // base: '/vue-layers/dist/'
 })
