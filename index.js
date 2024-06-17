@@ -23,11 +23,12 @@ const corsOptions = {
         }
         return callback(null, true);
     },
-    optionsSuccessStatus: 200 // Некоторые старые браузеры (например, IE11) могут обрабатывать статус 204 некорректно
+    optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
 app.use('/api', gameComments);
 app.use('/api', gamestatusRoutes);
 
