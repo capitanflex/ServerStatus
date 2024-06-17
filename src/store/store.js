@@ -8,7 +8,6 @@ export const useGameStore = defineStore('game', {
     actions: {
         updateGame(newGame) {
             this.game = newGame;
-            console.log(this.game)
         },
         addInfo(id, info) {
             this.infoCollection[id] = info;

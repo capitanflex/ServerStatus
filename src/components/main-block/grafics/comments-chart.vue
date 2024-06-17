@@ -1,8 +1,8 @@
 <script setup>
 import Chart from 'chart.js/auto';
-import {ref, onMounted, watch} from 'vue';
+import {onMounted, ref} from 'vue';
 import axios from 'axios';
-import { useGameStore } from '@/store/store.js';
+import {useGameStore} from '@/store/store.js';
 
 const gameStore = useGameStore();
 const chartData = ref({
@@ -19,7 +19,7 @@ onMounted(() => {
 });
 
 async function fetchDayComments(gameId) {
-    const params = { "gameid": gameId };
+    const params = {"gameid": gameId};
 
     try {
         const response = await axios.post('http://server-status.na4u.ru/api/comments-day/', params);
@@ -73,14 +73,8 @@ function countReports(lastComments, labels) {
 
     const counts = new Array(24).fill(0);
 
-    hoursReports.forEach(hour => {
+    hoursReports.forEach(hour => counts[labels.indexOf(hour)]++);// Увеличиваем счетчик для соответствующего часа
 
-        counts[labels.indexOf(hour)]++; // Увеличиваем счетчик для соответствующего часа
-        console.log(hour)
-        console.log(labels[hour])
-        console.log(counts[labels[hour]])
-        // debugger
-    });
 
     return counts;
 }
