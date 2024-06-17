@@ -52,4 +52,23 @@
     }
 }
 
+@media (max-width: 530px) {
+   .side-bar {
+       height: unset;
+
+       &__logo {
+           display: flex;
+           align-items: flex-end;
+       }
+   }
+    .logo {
+        &__abbr {
+            margin: 0 0 0 40px;
+        }
+        &__subtitle {
+            margin: -10px 0 25px 14px;
+        }
+    }
+}
+
 </style>

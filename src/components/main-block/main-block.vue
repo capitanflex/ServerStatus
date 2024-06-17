@@ -23,7 +23,7 @@ import Grafic from "./grafics/comments-chart.vue";
     width: 100%;
 }
 
-@media (max-width: 1158px) {
+@media (max-width: 530px) {
     
 }
 </style>

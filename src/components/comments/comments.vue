@@ -22,7 +22,7 @@ import CommentsRead from "@/components/comments/comments-read.vue";
       .comments {
           height: 100vh;
           width: 100%;
-          margin-right: 30px;
+          margin-right: 0;
       }
   }
 </style>

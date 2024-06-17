@@ -16,7 +16,7 @@ class GameCommentsController {
     async getGameComments (req, res) {
         try {
             console.log(req.body)
-            const { gameid, lastCommentId, count = 10 } = req.body;
+            const { gameid, lastCommentId, count = 15 } = req.body;
 
             let query;
             let params;
@@ -57,7 +57,6 @@ class GameCommentsController {
             const query = `
             SELECT * FROM comments
             WHERE gameid = $1 AND date >= NOW() - INTERVAL '24 hours'
-            ORDER BY id DESC
         `;
             const params = [gameid];
 

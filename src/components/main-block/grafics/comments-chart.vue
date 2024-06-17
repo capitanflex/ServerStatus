@@ -1,8 +1,8 @@
 <script setup>
 import Chart from 'chart.js/auto';
-import { ref, onMounted } from 'vue';
+import {ref, onMounted, watch} from 'vue';
 import axios from 'axios';
-import { useGameStore } from '../../../store/store.js';
+import { useGameStore } from '@/store/store.js';
 
 const gameStore = useGameStore();
 const chartData = ref({
@@ -58,18 +58,28 @@ function createChartData(lastComments) {
         data.labels.push(i < 0 ? String(i + 24) : String(i));
     }
 
-    data.datasets[0].data = countReports(lastComments);
+    data.datasets[0].data = countReports(lastComments, data.labels);
 
     return data;
 }
 
-function countReports(lastComments) {
-    const hoursReports = lastComments.map(el => el.date.slice(11, 13));
+function countReports(lastComments, labels) {
+    const hoursReports = lastComments.map(el => {
+        const commentDate = new Date(el.date);
+        commentDate.setHours(commentDate.getHours() + 2);
+
+        return commentDate.toLocaleTimeString().slice(0, -6);
+    });
+
     const counts = new Array(24).fill(0);
 
     hoursReports.forEach(hour => {
-        const index = parseInt(hour, 10); // Преобразуем час в число
-        counts[index]++; // Увеличиваем счетчик для соответствующего часа
+
+        counts[labels.indexOf(hour)]++; // Увеличиваем счетчик для соответствующего часа
+        console.log(hour)
+        console.log(labels[hour])
+        console.log(counts[labels[hour]])
+        // debugger
     });
 
     return counts;
@@ -91,6 +101,13 @@ function BuildChart() {
         });
     }
 }
+
+// watch(
+//     () => gameStore.game.id,
+//     (gameid) => {
+//         fetchDayComments(gameid)
+//     }
+// );
 </script>
 
 <template>

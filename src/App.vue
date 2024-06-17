@@ -30,4 +30,10 @@ import Comments from "./components/comments/comments.vue";
         padding-bottom: 200px;
     }
 }
+
+@media (max-width: 530px) {
+ .container {
+     border-radius: 30px 30px 0 0;
+ }
+}
 </style>

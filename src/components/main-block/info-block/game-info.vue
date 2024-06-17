@@ -63,7 +63,6 @@ const updateGameData = (data: GameData) => {
 watch(
     () => gameStore.game,
     (newGameData: GameData) => {
-        console.log(newGameData)
         updateGameData(newGameData);
     },
     {deep: true, immediate: true}

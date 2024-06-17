@@ -17,6 +17,7 @@ const submitForm = () => {
 
 async function sendComment(author: string, text: string) {
   const date = formatDate(Date.now());
+  console.log(date)
   const currentGameId = ref<number>(gameStore.game.id);
   const data = {
     gameid: currentGameId.value,
@@ -44,8 +45,10 @@ function formatDate(dateString: number) {
     const day = String(moscowTime.getUTCDate()).padStart(2, '0');
     const hours = String(moscowTime.getUTCHours()).padStart(2, '0');
     const minutes = String(moscowTime.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(moscowTime.getUTCSeconds()).padStart(2, '0');
+    const milliseconds = String(moscowTime.getUTCMilliseconds()).padStart(3, '0');
 
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
 }
 </script>
 

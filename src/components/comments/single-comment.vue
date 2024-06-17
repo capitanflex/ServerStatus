@@ -8,6 +8,8 @@ const props = defineProps({
 
 const currentDate = new Date();
 const commentDate = new Date(props.date);
+commentDate.setHours(commentDate.getHours() + 2);
+
 let formattedDate = '';
 
 if (
@@ -15,7 +17,6 @@ if (
     currentDate.getMonth() === commentDate.getMonth() &&
     currentDate.getFullYear() === commentDate.getFullYear()
 ) {
-    // Если дата сегодня, отображаем только время
     formattedDate = commentDate.toLocaleTimeString().slice(0, -3);
 } else {
     // Иначе отображаем полную дату и время
