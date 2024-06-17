@@ -1,25 +1,39 @@
 <script setup>
 import Chart from 'chart.js/auto';
-import {onMounted, ref} from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import axios from 'axios';
-import {useGameStore} from '@/store/store.js';
+import { useGameStore } from '@/store/store.js';
 
 const gameStore = useGameStore();
-const chartData = ref({
-    labels: [],
-    datasets: [{
-        label: 'Reports',
-        data: [],
-        borderWidth: 1
-    }]
-});
+let chartInstance = null; // Переменная для хранения экземпляра графика
 
 onMounted(() => {
-    fetchDayComments(gameStore.game.id);
+    const canvas = document.getElementById('myChart');
+    if (canvas instanceof HTMLCanvasElement) {
+        chartInstance = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Reports',
+                    data: [],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        fetchDayComments(gameStore.game.id);
+    }
 });
 
 async function fetchDayComments(gameId) {
-    const params = {"gameid": gameId};
+    const params = { "gameid": gameId };
 
     try {
         const response = await axios.post('https://server-status.na4u.ru/api/comments-day/', params);
@@ -36,11 +50,13 @@ async function fetchDayComments(gameId) {
 
 function updateChartData(lastComments) {
     const data = createChartData(lastComments);
-    chartData.value.labels = data.labels;
-    chartData.value.datasets[0].data = data.datasets[0].data;
 
-    // После обновления данных вызываем функцию для создания или обновления графика
-    BuildChart();
+    // Обновляем данные графика
+    chartInstance.data.labels = data.labels;
+    chartInstance.data.datasets[0].data = data.datasets[0].data;
+
+    // Не забываем обновить график после изменения данных
+    chartInstance.update();
 }
 
 function createChartData(lastComments) {
@@ -73,35 +89,18 @@ function countReports(lastComments, labels) {
 
     const counts = new Array(24).fill(0);
 
-    hoursReports.forEach(hour => counts[labels.indexOf(hour)]++);// Увеличиваем счетчик для соответствующего часа
-
+    hoursReports.forEach(hour => counts[labels.indexOf(hour)]++);
 
     return counts;
 }
 
-function BuildChart() {
-    const canvas = document.getElementById('myChart');
-    if (canvas instanceof HTMLCanvasElement) {
-        new Chart(canvas, {
-            type: 'bar',
-            data: chartData.value,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+watch(
+    () => gameStore.game.id,
+    (gameid) => {
+        fetchDayComments(gameid);
     }
-}
+);
 
-// watch(
-//     () => gameStore.game.id,
-//     (gameid) => {
-//         fetchDayComments(gameid)
-//     }
-// );
 </script>
 
 <template>
